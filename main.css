@@ -140,7 +140,7 @@ button.increment img {
 .quantity-number {
     margin: 0 10px; /* Space between number and buttons */
     font-family: 'Red Hat Text', sans-serif; /* Match your font */
-    font-size: 1.2em; /* Adjust font size if necessary */
+    font-size: 1em; /* Adjust font size if necessary */
     flex: 1; /* Allow the number to take available space */
     text-align: center; /* Center the quantity number */
 }
