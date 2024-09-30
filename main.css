@@ -53,7 +53,7 @@ main {
     margin: 15px;
     padding: 15px;
     text-align: center;
-    width: calc(33.33% - 30px); /* Three cards per row */
+    width: calc(33.33% - 30px);
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -79,23 +79,78 @@ main {
     margin: 5px 0;
 }
 
-button {
-    background-color: hsl(14, 86%, 42%);
-    color: white;
-    border: none;
+/* Button Styles */
+button.but-items {
+    background-color: white;
+    color: black;
     padding: 10px 20px;
+    border: 2px solid #333;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 25px 25px 25px 25px;
     font-size: 1em;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 190px;
+    /*Setafixedwidth*/
+    height: 45px;
+    /*Setafixedheight*/
+    margin: 0 auto;
+    background-image: url('/assets/images/icon-add-to-cart.svg');
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    padding-left: 40px;
+    overflow: hidden;
 }
 
-button:hover {
-    background-color: hsl(14, 75%, 42%);
-    transform: scale(1.05);
+.quantity-display {
+    display: flex; /* Flex display for horizontal alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space between items */
+    width: 100%; /* Full width of the button */
 }
 
-/* Cart Section */
+button.decrement,
+button.increment {
+    background-color: hsl(14, 55%, 42%); /* Circle color */
+    border: none; /* Remove border */
+    border-radius: 50%; /* Make it circular */
+    cursor: pointer;
+    width: 18px; /* Set a fixed width */
+    height: 18px; /* Set a fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+button.decrement:hover,
+button.increment:hover {
+    background-color: hsl(14, 75%, 42%); /* Darker on hover */
+}
+
+button.decrement img,
+button.increment img {
+    width: 14px; /* Adjust icon size */
+    height: 14px; /* Adjust icon size */
+}
+
+.quantity-number {
+    margin: 0 10px; /* Space between number and buttons */
+    font-family: 'Red Hat Text', sans-serif; /* Match your font */
+    font-size: 1.2em; /* Adjust font size if necessary */
+    flex: 1; /* Allow the number to take available space */
+    text-align: center; /* Center the quantity number */
+}
+
+.product-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .cart {
     position: relative;
     width: 28%;
@@ -124,27 +179,41 @@ button:hover {
     margin-bottom: 20px;
 }
 
-/* Styling the Remove Button */
 .cart-item .remove-item {
     background: url('./assets/images/icon-remove-item.svg') no-repeat center center;
-    background-color: transparent; /* No background initially */
-    background-size: 15px 15px; /* Icon size */
-    width: 25px; /* Button size */
+    background-color: transparent;
+    background-size: 15px 15px;
+    width: 25px;
     height: 25px;
     border: none;
-    border-radius: 50%; /* Circular button */
+    border-radius: 50%;
     cursor: pointer;
     padding: 0;
     position: absolute;
     top: 50%;
-    right: 10px; /* Position the X icon to the far right of each product */
-    transform: translateY(-50%); /* Center the button vertically */
+    right: 10px;
+    transform: translateY(-50%);
     transition: transform 0.2s;
 }
 
-/* Hover effect (only enlarge the button, no background change) */
+.total-price {
+    font-family: 'Red Hat Text', sans-serif; /* Use the same font family */
+    font-style: normal; /* Use normal font style */
+    font-weight: normal; /* Make the total label normal weight */
+    font-size: 1.1em; /* Adjust the font size as needed */
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between; /* Align text to the left and number to the right */
+    width: 100%; /* Make sure it takes the full width of the cart */
+}
+
+.price-amount {
+    font-weight: bold; /* Make the price amount bold */
+}
+
+
 .cart-item .remove-item:hover {
-    transform: translateY(-50%) scale(1.1); /* Slightly enlarge on hover */
+    transform: translateY(-50%) scale(1.1);
 }
 
 .confirm-order {
@@ -161,7 +230,6 @@ button:hover {
 }
 
 .confirm-order:hover {
-    background-color: #45a049;
     transform: scale(1.05);
 }
 
@@ -175,7 +243,6 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* Modal for Order Confirmation */
 .modal {
     display: none;
     position: fixed;
@@ -207,7 +274,6 @@ button:hover {
     margin-top: 20px;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
     main {
         flex-direction: column;
@@ -231,7 +297,4 @@ button:hover {
 @media (max-width: 480px) {
     .product-item {
         width: 100%;
-    }
-}
-
-
+    }}
