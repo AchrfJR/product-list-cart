@@ -19,30 +19,38 @@ function removeFromCart(productName) {
 }
 
 function updateCart() {
-    const cartItemsElement = document.getElementById('cart-items');
-    const cartCountElement = document.getElementById('cart-count');
+    const cartItemsElement = document.getElementById("cart-items");
+    const cartCountElement = document.getElementById("cart-count");
+    const cartTotalElement = document.getElementById("cart-total");
 
-    // Update cart count
-    cartCountElement.innerText = cart.length;
+    cartItemsElement.innerHTML = "";
+    total = 0;
 
-    // Clear the current cart
-    cartItemsElement.innerHTML = '';
+    cart.forEach((cartItem, index) => {
+        const itemElement = document.createElement("div");
+        itemElement.className = "cart-item"; // Changed from <p> to <div> for better control
+        itemElement.textContent = `${cartItem.item} - $${cartItem.price.toFixed(2)}`;
+        
+        // Create the remove button as an icon
+        const removeButton = document.createElement("button");
+        removeButton.className = "remove-item";
+        removeButton.onclick = () => {
+            cart.splice(index, 1);
+            updateCart();
+        };
+
+        itemElement.appendChild(removeButton);
+        cartItemsElement.appendChild(itemElement);
+
+        total += cartItem.price;
+    });
+
+    cartCountElement.textContent = cart.length;
+    cartTotalElement.textContent = `Order Total: $${total.toFixed(2)}`;
 
     if (cart.length === 0) {
-        cartItemsElement.innerHTML = '<p>Your added items will appear here</p>';
-        return;
+        cartItemsElement.innerHTML = "<p>Your added items will appear here</p>";
     }
-
-    // Add updated cart items
-    cart.forEach(item => {
-        const cartItem = document.createElement('div');
-        cartItem.classList.add('cart-item');
-        cartItem.innerHTML = `
-            <p>${item.name} - $${item.price} (x${item.quantity})</p>
-            <button class="remove-item" onclick="removeFromCart('${item.name}')">Remove</button>
-        `;
-        cartItemsElement.appendChild(cartItem);
-    });
 }
 
 function confirmOrder() {

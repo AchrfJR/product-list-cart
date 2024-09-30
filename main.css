@@ -72,7 +72,7 @@ main {
 .product-item h3 {
     font-size: 1.1em;
     margin-top: 10px;
-    color: hsl(14, 75%, 42%)
+    color: hsl(14, 75%, 42%);
 }
 
 .product-item p {
@@ -97,14 +97,14 @@ button:hover {
 
 /* Cart Section */
 .cart {
-    position: relative; /* Changed to keep the cart alongside the products */
-    width: 28%; /* Takes up 28% of the width to sit alongside the product list */
-    max-height: 400px; /* Set a maximum height */
+    position: relative;
+    width: 28%;
+    max-height: 400px;
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    overflow-y: auto; /* Enable scrolling if the content exceeds the height */
+    overflow-y: auto;
 }
 
 .cart-header {
@@ -114,19 +114,48 @@ button:hover {
 }
 
 .cart-items {
+    position: relative;
     margin-bottom: 20px;
+}
+
+.cart-items .cart-item {
+    position: relative;
+    padding-right: 35px;
+    margin-bottom: 20px;
+}
+
+/* Styling the Remove Button */
+.cart-item .remove-item {
+    background: url('./assets/images/icon-remove-item.svg') no-repeat center center;
+    background-color: transparent; /* No background initially */
+    background-size: 15px 15px; /* Icon size */
+    width: 25px; /* Button size */
+    height: 25px;
+    border: none;
+    border-radius: 50%; /* Circular button */
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Position the X icon to the far right of each product */
+    transform: translateY(-50%); /* Center the button vertically */
+    transition: transform 0.2s;
+}
+
+/* Hover effect (only enlarge the button, no background change) */
+.cart-item .remove-item:hover {
+    transform: translateY(-50%) scale(1.1); /* Slightly enlarge on hover */
 }
 
 .confirm-order {
     display: block;
     width: 90%;
     background-color: hsl(14, 55%, 42%);
-    /*Buttoncolor*/color: white;
+    color: white;
     border: none;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 20px;
     cursor: pointer;
     margin: 10px auto;
-    /*Centerhorizontally*/
     text-align: center;
     padding: 13px;
 }
@@ -136,30 +165,13 @@ button:hover {
     transform: scale(1.05);
 }
 
-
-.confirm-order:hover, .start-new-order:hover {
-    background-color: hsl(14, 75%, 42%);
-    transform: scale(1.05);
-}
-
-.cart-items .remove-item {
-    background-color: #ff4d4d; /* Red background for the Remove button */
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-.confirm-order:hover {
-    background-color: hsl(14, 75%, 42%);
-    transform: scale(1.05);
-}
-
 .start-new-order {
-    background-color: hsl(14, 75%, 42%)
+    background-color: hsl(14, 75%, 42%);
     margin-top: 10px;
 }
 
 .start-new-order:hover {
-    background-color: hsl(14, 75%, 42%)
+    background-color: hsl(14, 75%, 42%);
     transform: scale(1.05);
 }
 
@@ -191,7 +203,7 @@ button:hover {
 }
 
 .modal-content button {
-    background-color: hsl(14, 75%, 42%)
+    background-color: hsl(14, 75%, 42%);
     margin-top: 20px;
 }
 
@@ -208,17 +220,18 @@ button:hover {
     .cart {
         width: 100%;
         margin-top: 20px;
-        max-height: unset; /* Remove the height limit for smaller screens */
+        max-height: unset;
     }
 
     .product-item {
-        width: calc(50% - 20px); /* Two images per row */
+        width: calc(50% - 20px);
     }
 }
 
 @media (max-width: 480px) {
     .product-item {
-        width: 100%; /* One image per row */
+        width: 100%;
     }
 }
+
 
