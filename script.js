@@ -8,45 +8,46 @@ function addToCart(productName, price) {
         cart.push({ name: productName, price: price, quantity: 1 }); // Add new product to cart
     }
     updateCart();
-    updateButtonDisplay(productName);
+    updateButtonDisplay(productName, price);
 }
 
-function updateButtonDisplay(productName) {
+function updateButtonDisplay(productName, price) {
     const button = document.querySelector(`button[data-product="${productName}"]`);
     const product = cart.find(item => item.name === productName);
     const quantity = product ? product.quantity : 0;
 
     // Set the button content
     button.innerHTML = `
-        <div class="quantity-display" style="display: none;">
+        <div class="quantity-display">
             <button class="decrement" onclick="decrement('${productName}')">
                 <img src="./assets/images/icon-decrement-quantity.svg" alt="Decrement">
             </button>
             <span class="quantity-number">${quantity}</span>
-            <button class="increment" onclick="increment('${productName}', ${product ? product.price : 0})">
+            <button class="increment" onclick="increment('${productName}', ${price})">
                 <img src="./assets/images/icon-increment-quantity.svg" alt="Increment">
             </button>
         </div>
-        <span style="display: ${quantity > 0 ? 'none' : 'inline'};">Add to Cart</span>
     `;
 
     const quantityDisplay = button.querySelector('.quantity-display');
 
+    // Show the quantity controls when hovering
     button.addEventListener('mouseenter', () => {
-        quantityDisplay.style.display = 'flex'; // Show quantity display
+        quantityDisplay.style.display = 'flex';
         button.style.color = 'hsl(14, 55%, 42%)'; // Change text color on hover
         button.style.borderColor = 'hsl(14, 55%, 42%)'; // Change border color on hover
     });
 
+    // Revert back to 'Add to Cart' if no items exist on mouse leave
     button.addEventListener('mouseleave', () => {
         if (quantity === 0) {
-            button.innerHTML = `<span>Add to Cart</span>`; // Show "Add to Cart" if no items
+            button.innerHTML = `<span>Add to Cart</span>`;
         }
     });
 }
 
 function increment(productName, price) {
-    addToCart(productName, price); // Call addToCart to add one item
+    addToCart(productName, price); // Increment product quantity
 }
 
 function decrement(productName) {
@@ -54,11 +55,11 @@ function decrement(productName) {
     if (product) {
         product.quantity -= 1; // Decrease quantity
         if (product.quantity <= 0) {
-            cart = cart.filter(item => item.name !== productName); // Remove item if quantity is zero
+            cart = cart.filter(item => item.name !== productName); // Remove item from cart if quantity is zero
         }
     }
     updateCart();
-    updateButtonDisplay(productName);
+    updateButtonDisplay(productName, product ? product.price : 0); // Update button with correct quantity
 }
 
 function updateCart() {
@@ -75,17 +76,12 @@ function updateCart() {
 
         const removeButton = document.createElement("button");
         removeButton.className = "remove-item";
+        removeButton.innerHTML = `<img src="./assets/images/icon-remove-item.svg" alt="Remove">`;
         
-        // Use an icon for the remove button
-        const removeIcon = document.createElement("img");
-        removeIcon.src = "./assets/images/icon-remove-item.svg"; // Update with your icon path
-        removeIcon.alt = "Remove";
-        
-        removeButton.appendChild(removeIcon);
         removeButton.onclick = () => {
             cart.splice(index, 1); // Remove item from cart
             updateCart();
-            updateButtonDisplay(cartItem.name); // Update button display after removal
+            updateButtonDisplay(cartItem.name, cartItem.price); // Update button display after removal
         };
 
         itemElement.appendChild(removeButton);
@@ -100,10 +96,8 @@ function updateCart() {
         cartItemsElement.innerHTML = "<p>Your added items will appear here</p>";
     }
 
-    // Calculate and update total price
-    total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const totalPriceElement = document.getElementById("total-price");
-    totalPriceElement.innerHTML = `$${total.toFixed(2)}`;
+    totalPriceElement.textContent = `$${total.toFixed(2)}`;
 }
 
 function confirmOrder() {
@@ -111,17 +105,13 @@ function confirmOrder() {
     const orderSummaryElement = document.getElementById('order-summary');
     orderSummaryElement.innerHTML = '';
 
-    // Add the items to the order summary
     cart.forEach(item => {
         const summaryItem = document.createElement('p');
         summaryItem.textContent = `${item.name} - $${item.price} (x${item.quantity})`;
         orderSummaryElement.appendChild(summaryItem);
     });
 
-    // Show the modal
     modal.style.display = 'flex';
-
-    // Empty the cart after confirming the order
     cart = [];
     updateCart();
 }
@@ -130,6 +120,3 @@ function closeModal() {
     const modal = document.getElementById('order-confirmation-modal');
     modal.style.display = 'none';
 }
-
-
-
