@@ -40,10 +40,8 @@ function updateButtonDisplay(productName, price) {
 
     // Revert back to 'Add to Cart' if no items exist on mouse leave
     button.addEventListener('mouseleave', () => {
-        if (quantity === 0) {
             button.innerHTML = `<span>Add to Cart</span>`;
-        }
-    });
+    })
 }
 
 function increment(productName, price) {
